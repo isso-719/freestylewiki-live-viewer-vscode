@@ -3,7 +3,7 @@
   "name": "FS-Live-Viewer",
   "displayName": "FS Live Viewer",
   "description": "A FreeStyle Wiki Live Viewer with VSCode.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.63.0"
   },
