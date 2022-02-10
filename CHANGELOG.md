@@ -6,12 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+- Initial release .
 
 ## [0.0.2]
 
-- Add README
+- Add README.md .
 
 ## [0.0.3]
 
 - Fix `.vscodeignore` . Because can't open `src/contents` .
+
+## [0.0.4]
+
+- Add screenshot in README.md .
+- Fix README.md's text .
+- Add repository info in package.json .

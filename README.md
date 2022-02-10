@@ -2,9 +2,15 @@
 
 A FreeStyle Wiki Live Viewer with VSCode.
 
+- Screenshot
+![ScreenShot01](./screenshots/screenshot_01.png)
+
+- Movie
+![ScreenShot02](./screenshots/screenshot_02.gif)
+
 ## HowTo Use?
 
-1. Install via [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=KazukiIsogai.FS-Live-Viewer)
+1. Install via [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=KazukiIsogai.FS-Live-Viewer) .
 
 2. Open your FreeStyle Wiki Article.
 
