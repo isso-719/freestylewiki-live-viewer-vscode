@@ -4,6 +4,9 @@
 
 <h1 style="text-align: center;">FreeStyleWiki Live Viewer for VSCode</h1>
 
+[![Lint](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/lint.yml/badge.svg)](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/lint.yml)
+[![Test](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/test.yml/badge.svg)](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/test.yml)
+
 <p style="text-align: center;">Live preview FreeStyleWiki (a.k.a FSWiki, FSW) file for VSCode.</p>
 
 <img src="images/demo.png" width="100%" style="display: block; margin: 0 auto; max-width: 640px; height: auto;">
