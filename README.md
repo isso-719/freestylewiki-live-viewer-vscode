@@ -4,6 +4,7 @@
 
 <h1 style="text-align: center;">FreeStyleWiki Live Viewer for VSCode</h1>
 
+[![Version](https://img.shields.io/vscode-marketplace/v/kazukiisogai.fs-live-viewer.svg?style=flat&logo=visual%20studio%20code&label=vscode%20marketplace)](https://marketplace.visualstudio.com/items?itemName=kazukiisogai.fs-live-viewer)
 [![Lint](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/lint.yml/badge.svg)](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/lint.yml)
 [![Test](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/test.yml/badge.svg)](https://github.com/isso-719/freestylewiki-live-viewer-vscode/actions/workflows/test.yml)
 
