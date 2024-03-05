@@ -1,79 +1,105 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
+import HTMLParse from './lib/parser';
+
+let lastKnownScrollY = 0;
+let panel: vscode.WebviewPanel | null = null;
 
 export function activate(context: vscode.ExtensionContext) {
+	let panelGen = vscode.commands.registerCommand('fs-live-viewer.open', () => {
 
-	let disposable = vscode.commands.registerCommand('FS-Live-Viewer.open', () => {
-
-		const panel = vscode.window.createWebviewPanel(
-			'FS-Live-Viewer', // Identifies the type of the webview. Used internally
-			'FS Live Viewer', // Title of the panel displayed to the user
-			vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
-			{
-				enableScripts: true,
-			}
-		);
-
-		// アクティブなウィンドウのタブを取得
 		const activeEditor = vscode.window.activeTextEditor;
-
-		// アクティブなウィンドウのタブが存在しない場合は終了
 		if (!activeEditor) {
 			vscode.window.showErrorMessage('No active editor.');
 			return;
 		}
 
-		// アクティブなウィンドウのタブのファイルパスを取得
-		const filePath = activeEditor.document.fileName;
-
-		// アクティブなウィンドウのタブがファイルでない場合は終了
-		if (!filePath) {
+		const activeFile = activeEditor.document.fileName;
+		if (!activeFile) {
 			vscode.window.showErrorMessage('No active file.');
 			return;
 		}
 
-		const cssFile = vscode.Uri.file(path.join(context.extensionPath, 'src', 'content', 'style.css'));
-		const jsFile = vscode.Uri.file(path.join(context.extensionPath, 'src', 'content', 'main.js'));
+		if (!activeFile.endsWith('.fsw') && !activeFile.endsWith('.fswiki')) {
+			vscode.window.showErrorMessage('This file is not a FreeStyleWiki file.');
+			return;
+		}
 
+		panel = vscode.window.createWebviewPanel(
+			'fs-live-viewer',
+			'FreeStyleWiki Live Viewer',
+			vscode.ViewColumn.Beside,
+			{
+				enableScripts: true,
+				retainContextWhenHidden: true,
+			}
+		);
+
+
+		const config = vscode.workspace.getConfiguration("fs-live-viewer");
+		const styleTheme: any = config.get("styleTheme");
+
+		const cssFile = vscode.Uri.file(path.join(context.extensionPath, 'dist', 'theme', `${styleTheme}`, `${styleTheme}.css`));
 		const cssPath = panel.webview.asWebviewUri(cssFile);
-		const jsPath = panel.webview.asWebviewUri(jsFile);
 
-		// アクティブなウィンドウのタブのファイルのコードを取得
-		let code = activeEditor.document.getText();
+		panel.webview.html = getWebviewContent(HTMLParse(activeEditor.document.getText()), cssPath);
 
-		panel.webview.html = getWebviewContent(cssPath, jsPath, code);
-
-		// アクティブなウィンドウのタブのファイルのコードを変更した際に、Webviewに反映させる
-		vscode.workspace.onDidChangeTextDocument(() => {
-			code = activeEditor.document.getText();
-			panel.webview.html = getWebviewContent(cssPath, jsPath, code);
+		vscode.workspace.onDidChangeTextDocument(event => {
+			if (activeEditor && event.document === activeEditor.document && panel) {
+				panel.webview.html = getWebviewContent(HTMLParse(activeEditor.document.getText()), cssPath);
+				panel.webview.postMessage({ command: 'getScrollPosition' });
+			}
 		});
 
+		panel.webview.onDidReceiveMessage(message => {
+			switch (message.command) {
+				case 'saveScrollPosition':
+					lastKnownScrollY = message.scrollY;
+					break;
+			}
+		});
 	});
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(panelGen);
 }
 
-export function deactivate() {}
+function getWebviewContent(text: string, cssPath: vscode.Uri): string {
+	return `
+		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta charset="UTF-8">
+			<link rel="stylesheet" href="${cssPath}">
+		<body>
+			${text}
+			<div style="height: calc(100vh - 1em);"></div>
 
-function getWebviewContent(cssPath: vscode.Uri, jsPath: vscode.Uri, code: string) {
-	return `<!DOCTYPE html>
-<html lang="ja">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="${cssPath}">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
-	<title>FS Wiki Live Viewer</title>
-</head>
+			<script>
+				window.onload = () => {
+					window.scrollTo(0, ${lastKnownScrollY});
+				};
 
-<body>
-	<div id="container"></div>
-	<script>var code = ${JSON.stringify(code)};</script>
-	<script src="${jsPath}"></script>
-</body>
+				const vscode = acquireVsCodeApi()
+				window.onscroll = () => {
+					vscode.postMessage({
+						command: 'saveScrollPosition',
+						scrollY: window.scrollY
+					});
+				};
 
-</html>`;
+				window.addEventListener('message', event => {
+					const message = event.data;
+					switch (message.command) {
+						case 'getScrollPosition':
+							vscode.postMessage({
+								command: 'saveScrollPosition',
+								scrollY: window.scrollY
+							});
+							break;
+					}
+				});
+			</script>
+		</body>
+		</html>`;
 }
