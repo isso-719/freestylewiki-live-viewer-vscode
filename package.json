@@ -1,5 +1,5 @@
 {
-  "name": "fs-live-viewer-test",
+  "name": "fs-live-viewer",
   "displayName": "FreeStyleWiki Live Viewer for VSCode",
   "description": "Live preview FreeStyleWiki (a.k.a FS Wiki, FSW) file for VSCode.",
   "version": "1.0.0",
