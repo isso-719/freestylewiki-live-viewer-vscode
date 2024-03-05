@@ -76,6 +76,39 @@ if you want export to `.vsix` file, run below command.
 npm run build
 ```
 
+## How to add a grammar with paragraph plugins to the parser
+
+1. Open settings.json
+
+    -  On macOS.
+        1. `Command + Shift + p` to open command pallet.
+        2. Put `> settings`.
+        3. Select `Preferences: Open Settings (JSON)`.
+
+    - On Windows.
+        1. `Ctrl + Shift + p` to open command pallet.
+        2. Put `> settings`.
+        3. Select `Preferences: Open Settings (JSON)`.
+
+2. Add `fs-live-viewer.pluginParseSettings` to the settings.json file.
+
+    - if you want to add pre plugin to the parser, add below code.
+
+        ```json
+        ...
+
+        "fs-live-viewer.pluginParseSettings": [
+            {
+                "parseFSWTemplate": "{{pre\n$1\n}}",
+                "parseHTMLTemplate": "<pre>$1</pre>",
+            }
+        ],
+
+        ...
+        ```
+
+3. Reopen FreeStyleWiki Live Viewer.
+
 ## License
 
 Apache License 2.0. See [LICENSE](./LICENSE) file for more information.
