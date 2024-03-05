@@ -6,12 +6,15 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: ci
         run: npm ci
+      - name: Setup xvfb
+        run: sudo apt-get install -y xvfb
       - name: Test
-        run: npm run test
+        run: xvfb-run --auto-servernum npm run test
