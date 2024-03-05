@@ -59,3 +59,9 @@ This version includes many disruptive changes.
 ## [1.0.1] - 2024-03-06
 
 Publish error and unavailable version name `v1.0.0`. So, I published `v1.0.1`.
+
+## [1.0.2] - 2024-03-06
+
+### Fixed
+
+- Package name has changed. Because of publish validation error.
