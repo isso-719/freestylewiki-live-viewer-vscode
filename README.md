@@ -1,10 +1,14 @@
-<img src="images/logo.png" width="180px" style="display: block; margin: 20 auto;">
+<div align="center">
+
+<img src="images/logo.png" width="180px" style="display: block; margin-bottom: 20px;">
 
 <h1 style="text-align: center;">FreeStyleWiki Live Viewer for VSCode</h1>
 
 <p style="text-align: center;">Live preview FreeStyleWiki (a.k.a FSWiki, FSW) file for VSCode.</p>
 
 <img src="images/demo.png" width="100%" style="display: block; margin: 0 auto; max-width: 640px; height: auto;">
+
+</div>
 
 ## Install
 
