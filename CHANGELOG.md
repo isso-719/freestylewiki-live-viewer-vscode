@@ -71,3 +71,9 @@ Publish error and unavailable version name `v1.0.0`. So, I published `v1.0.1`.
 ### Fixed
 
 - Temporarily stop Publish by GitHub Actions
+
+## [1.0.4] - 2024-03-06
+
+### Added
+
+- Add explain for custom plugin settings.
