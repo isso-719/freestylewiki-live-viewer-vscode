@@ -1,8 +1,8 @@
-# name: Publish Extension
-# on:
-#   push:
-#     tags:
-#       - '*'
+name: Publish Extension
+on:
+  push:
+    tags:
+      - '*'
 # jobs:
 #   deploy:
 #     runs-on: ubuntu-latest
