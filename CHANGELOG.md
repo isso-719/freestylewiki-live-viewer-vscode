@@ -55,3 +55,7 @@ This version includes many disruptive changes.
 ### Security
 
 - Not support earlier versions. Same reason as `Deprecated`.
+
+## [1.0.1] - 2024-03-06
+
+Publish error and unavailable version name `v1.0.0`. So, I published `v1.0.1`.
