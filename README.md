@@ -47,26 +47,26 @@ Download on the [Visual Studio Marketplace](https://marketplace.visualstudio.com
 
 2. Install dependencies.
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
 3. Make changes.
 
 4. Compile TypeScript files.
 
-    ```bash
-    npm run compile
-    ```
+```bash
+npm run compile
+```
 
 5. Push `F5` key on VSCode and enjoy debugging.
 
 6. Run tests.
 
-    ```bash
-    npm lint
-    npm test
-    ```
+```bash
+npm lint
+npm test
+```
 
 ## Build
 
@@ -94,18 +94,18 @@ npm run build
 
     - if you want to add pre plugin to the parser, add below code.
 
-        ```json
-        ...
+```json
+...
 
-        "fs-live-viewer.pluginParseSettings": [
-            {
-                "parseFSWTemplate": "{{pre\n$1\n}}",
-                "parseHTMLTemplate": "<pre>$1</pre>",
-            }
-        ],
+"fs-live-viewer.pluginParseSettings": [
+    {
+        "parseFSWTemplate": "{{pre\n$1\n}}",
+        "parseHTMLTemplate": "<pre>$1</pre>",
+    }
+],
 
-        ...
-        ```
+...
+```
 
 3. Reopen FreeStyleWiki Live Viewer.
 

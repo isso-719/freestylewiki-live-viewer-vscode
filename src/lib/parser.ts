@@ -7,6 +7,9 @@ function HTMLParse(text: string): string {
     text = text.replace(/</g, "&lt;"); // <
     text = text.replace(/>/g, "&gt;"); // >
 
+    // \r\n となっている場合は \n に変換 (改行コードの統一)
+    text = text.replace(/\r\n/g, "\n");
+
     // vscode から plugin 設定を取得
     const config = vscode.workspace.getConfiguration("fs-live-viewer");
     const pluginSettings: any = config.get("pluginParseSettings");
