@@ -76,7 +76,7 @@ function HTMLParse(text: string): string {
             if (match) {
                 let html = pluginHTMLPattern;
                 for (let j = 1; j < match.length; j++) {
-                    html = html.replace(new RegExp(`\\$${j}`, "g"), match[j]);
+                    html = html.replace(new RegExp(`\\$${j}`, "g"), () => match[j]);
                 }
                 result.push(html);
             } else {
